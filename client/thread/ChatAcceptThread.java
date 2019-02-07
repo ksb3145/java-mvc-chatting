@@ -4,6 +4,7 @@ import controller.DispatcherController;
 import dto.ModelAndView;
 import dto.MessageDTO;
 import service.ViewService;
+import util.PropUtil;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -15,11 +16,6 @@ import java.net.SocketException;
 public class ChatAcceptThread extends Thread {
     private ViewService viewService = ViewService.getInstance();
     private DispatcherController dispatcherController;
-
-    // FIXME Using patternString.yaml
-    private static final String REMOTE_HOST = "127.0.0.1";      // Local host
-//    private static final String REMOTE_HOST = "35.243.106.143"; // GCP
-//    private static final String REMOTE_HOST = "70.12.245.35";   // Wifi
     private boolean flag;
     private MessageDTO messageDTO = null;
     private ObjectInputStream in = null;
@@ -36,7 +32,8 @@ public class ChatAcceptThread extends Thread {
     public void run() {
         dispatcherController = DispatcherController.getInstance();
         try {
-            this.socket = new Socket(REMOTE_HOST, 7777);
+            this.socket = new Socket(PropUtil.obj().get("config.ntw.ip")
+            		, Integer.parseInt(PropUtil.obj().get("config.ntw.port")));
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
 

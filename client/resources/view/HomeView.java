@@ -2,6 +2,7 @@ package resources.view;
 
 import controller.DispatcherController;
 import dto.ModelAndView;
+import util.PropUtil;
 
 import java.awt.*;
 
@@ -41,7 +42,7 @@ public class HomeView implements IView {
         pw.setEchoChar('*');
         stateLabel = new Label();
         stateLabel.setAlignment(Label.CENTER);
-        titleLabel = new Label("로그인이 필요한 서비스 입니다.");
+        titleLabel = new Label(PropUtil.obj().get("config.msg.reqLogin"));
         titleLabel.setAlignment(Label.CENTER);
 
         idx.frame.add(titleLabel);
