@@ -38,10 +38,3 @@ public class DispatcherController {
         if(view != null) View.showFrame(view, modelAndView);
     }
 }
-
-
-
-
-
-
-

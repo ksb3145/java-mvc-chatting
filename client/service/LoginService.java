@@ -2,6 +2,7 @@ package service;
 
 import domain.UserVO;
 import dto.ModelAndView;
+import util.PropUtil;
 import dto.LoginDTO;
 
 import java.io.ObjectInputStream;
@@ -9,10 +10,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class LoginService {
-        private final static String REMOTE_HOST = "127.0.0.1"; // Local host
-//    private static final String REMOTE_HOST = "35.243.106.143"; // GCP
-    private final static String PORT = "6666";
-
     private LoginService() {
     }
 
@@ -34,12 +31,13 @@ public class LoginService {
 
     private LoginDTO getPermission(ModelAndView modelAndView, String action) {
         LoginDTO sendDTO = new LoginDTO();
-        sendDTO.setMessage("서버가 연결되어 있지 않습니다!");
+        sendDTO.setMessage(PropUtil.obj().get("config.msg.netErr"));
         sendDTO.setAccess(false);
         sendDTO.setUrl("/home");
 
         try {
-            Socket socket = new Socket(REMOTE_HOST, Integer.parseInt(PORT));
+            Socket socket = new Socket(PropUtil.obj().get("config.ntw.ip")
+            		, Integer.parseInt(PropUtil.obj().get("config.ntw.port.client1")));
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 

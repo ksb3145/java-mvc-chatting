@@ -60,11 +60,11 @@ public class HomeView implements IView {
         loginButton.addActionListener(e -> {
             modelAndView.setUserName(id.getText());
             modelAndView.setPw(pw.getText());
-            modelAndView.setUrl("/login/signIn");
+            modelAndView.setUrl(PropUtil.obj().get("config.page.signIn"));
             dispatcherController.in(modelAndView);
         });
         registerButton.addActionListener(e -> {
-            modelAndView.setUrl("/view/register");
+            modelAndView.setUrl(PropUtil.obj().get("config.page.signUp"));
             dispatcherController.in(modelAndView);
         });
     }
